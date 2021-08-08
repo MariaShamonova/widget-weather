@@ -1,18 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { FunctionComponent } from "react";
-import "./styles.scss";
-import cursor from "./images/cursor.png";
-import barometer from "./images/weather/barometer.png";
+import React, { useEffect, useState } from 'react';
+import { FunctionComponent } from 'react';
+import './styles.scss';
+import cursor from './images/cursor.png';
+import barometer from './images/weather/barometer.png';
 
 interface WindType {
   speed: number;
-  gust: number;
-  deg: number;
 }
 interface MainType {
   temp: number;
-  temp_max: number;
-  temp_min: number;
   feels_like: number;
   humidity: number;
   pressure: number;
@@ -33,12 +29,8 @@ interface CoordType {
   lon: number;
 }
 export interface WeatherDataType {
+  id: number;
   name: string;
-  base: string;
-  cod: number;
-  coord: CoordType;
-  dt: number;
-  sys: SysType;
   weather: WeatherType[];
   main: MainType;
   wind: WindType;
@@ -51,62 +43,70 @@ type AppProps = {
 };
 
 const CitiesItem: FunctionComponent<AppProps> = ({ data }) => {
-  const [icon, setIcon] = useState<string>("");
+  const {
+    id,
+    name,
+    wind: { speed },
+    main: { temp, feels_like, humidity, pressure },
+    visibility,
+  } = data;
+
+  const [icon, setIcon] = useState<string>('');
 
   const capitalFirstSymbol = (text: string) => {
     return text[0].toUpperCase() + text.slice(1);
   };
 
-  let temp = "";
-  const description = data.weather.map((el) => temp.concat(capitalFirstSymbol(el.description) + ". "));
+  let emptyString = '';
+  const description = data !== null ? data.weather.map((el) => emptyString.concat(capitalFirstSymbol(el.description) + '. ')) : '';
 
   const setIconName = (iconName: string) => {
     switch (iconName) {
-      case "Clouds": {
-        return "clouds";
+      case 'Clouds': {
+        return 'clouds';
       }
-      case "Rain": {
-        return "rain";
+      case 'Rain': {
+        return 'rain';
       }
-      case "Clear": {
-        return "sun";
+      case 'Clear': {
+        return 'sun';
       }
-      case "Mist": {
-        return "mist";
+      case 'Mist': {
+        return 'mist';
       }
-      case "Fog": {
-        return "mist";
+      case 'Fog': {
+        return 'mist';
       }
-      case "Snow": {
-        return "snow";
+      case 'Snow': {
+        return 'snow';
       }
-      case "Thunder": {
-        return "thunder";
+      case 'Thunder': {
+        return 'thunder';
       }
-      case "Storm": {
-        return "storm";
+      case 'Storm': {
+        return 'storm';
       }
-      case "Tornado": {
-        return "tornado";
+      case 'Tornado': {
+        return 'tornado';
       }
-      case "Wind": {
-        return "wind";
+      case 'Wind': {
+        return 'wind';
       }
       default: {
-        return "thermometer-1";
+        return 'thermometer-1';
       }
     }
   };
 
-  const name = setIconName(data.weather[0].main);
+  const nameImage = setIconName(data.weather[0].main);
 
   useEffect(() => {
     (async () => {
       try {
-        const importedIcon = await import(`./images/weather/${name}`);
+        const importedIcon = await import(`./images/weather/${nameImage}`);
         setIcon(importedIcon.default);
       } catch {
-        const importedIcon = await import(`./images/weather/${name}.png`);
+        const importedIcon = await import(`./images/weather/${nameImage}.png`);
         setIcon(importedIcon.default);
       }
     })();
@@ -114,18 +114,18 @@ const CitiesItem: FunctionComponent<AppProps> = ({ data }) => {
 
   return (
     <div className="cities-item">
-      <div className="cities-item__elem cities-item__title">{data.name}</div>
+      <div className="cities-item__elem cities-item__title">{data !== null ? data.name : '—'}</div>
       <div className="cities-item__elem cities-item__temperature">
         <div className="temperature__item image">
           <img src={icon} alt="" width="45" />
         </div>
         <div className="temperature__item text">
-          {data !== null && data.main.temp}
+          {data !== null ? temp : '—'}
           &#186;
         </div>
       </div>
       <div className="cities-item__elem cities-item__description">
-        Feels like {data.main.feels_like}. &#186;C &nbsp;
+        Feels like {data !== null ? feels_like : '—'}. &#186;C &nbsp;
         {description}
       </div>
       <div className="cities-item__elem cities-item__speed-wind">
@@ -134,9 +134,11 @@ const CitiesItem: FunctionComponent<AppProps> = ({ data }) => {
             <img src={cursor} alt="" />
           </div>
           <div className="text">
-            {data.wind.speed.toLocaleString("ru", {
-              minimumFractionDigits: 1,
-            })}{" "}
+            {data !== null
+              ? speed.toLocaleString('ru', {
+                  minimumFractionDigits: 1,
+                })
+              : '—'}
             m/s
           </div>
         </div>
@@ -144,11 +146,11 @@ const CitiesItem: FunctionComponent<AppProps> = ({ data }) => {
           <div className="icon">
             <img src={barometer} alt="" width="16" />
           </div>
-          <div className="text">{data.main.pressure} hPa</div>
+          <div className="text">{data !== null ? pressure : '—'} hPa</div>
         </div>
       </div>
-      <div className="cities-item__elem cities-item__humidity">Humidity: {data.main.humidity}%</div>
-      <div className="cities-item__elem cities-item__visibility">Visibility: {data.visibility} km</div>
+      <div className="cities-item__elem cities-item__humidity">Humidity: {data !== null ? humidity : '—'}%</div>
+      <div className="cities-item__elem cities-item__visibility">Visibility: {data !== null ? visibility : '—'} km</div>
     </div>
   );
 };

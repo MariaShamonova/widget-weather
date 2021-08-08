@@ -1,8 +1,9 @@
-import React, { useState, useEffect, FunctionComponent } from "react";
-import gear from "./images/gear.png";
-import CitiesItem from "./CitiesItem";
-import ModalSetting from "./Modal/ModalSetting";
-import { WeatherDataType } from "./CitiesItem";
+import React, { useState, useEffect, FunctionComponent } from 'react';
+import gear from './images/gear.png';
+import CitiesItem from './CitiesItem';
+import ModalSetting from './Modal/ModalSetting';
+import { WeatherDataType } from './CitiesItem';
+import constants from '../../constants';
 
 export interface SelectedListType {
   id: number;
@@ -19,23 +20,21 @@ const WidgetWeather: FunctionComponent<AppProps> = ({ currWeather }) => {
     return condition ? elements : [];
   };
 
-  const apiKey = "bdf8194cb2aa74ffc6a004548c775541";
-
   const [data, setData] = useState(currWeather);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(false);
   const closeModal = () => setOpen(false);
   const [selectedList, setSelectedList] = useState<SelectedListType[]>([
     ...insertIf(currWeather.length > 0, {
-      id: 0,
+      id: currWeather.length > 0 ? currWeather[0].id : 0,
       order: 0,
-      name: currWeather.length > 0 ? currWeather[0].name : "",
+      name: currWeather.length > 0 ? currWeather[0].name : '',
     }),
   ]);
 
   const clickSave = async (listCities: SelectedListType[]) => {
     const cities = await Promise.all(
       listCities.map(async (city: SelectedListType) => {
-        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${apiKey}&units=metric`).then((res) => {
+        return fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city.name}&appid=${constants.apiKey}&units=metric`).then((res) => {
           if (res.ok) {
             return res.json();
           }
@@ -51,7 +50,7 @@ const WidgetWeather: FunctionComponent<AppProps> = ({ currWeather }) => {
   const MainComponent = () => {
     return (
       <div className="widget-weather__main">
-        {data.length > 0 ? data.map((el, index) => <CitiesItem data={el} key={index} />) : <div className="message__empty">No selected cities</div>}
+        {data.length > 0 ? data.map((el, index) => <CitiesItem data={el} key={el.id} />) : <div className="message__empty">No selected cities</div>}
       </div>
     );
   };

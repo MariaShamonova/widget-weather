@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import WidgetWeather from "./WidgetWeather";
-import preloader from "./images/preloader.gif";
-import axios from "axios";
-import { WeatherDataType } from "./CitiesItem";
+import React, { useState, useEffect } from 'react';
+import WidgetWeather from './WidgetWeather';
+import preloader from './images/preloader.gif';
+import axios from 'axios';
+import { WeatherDataType } from './CitiesItem';
+import constants from '../../constants';
 
 function Main() {
-  const apiKey = "bdf8194cb2aa74ffc6a004548c775541";
   const [data, setData] = useState<WeatherDataType[]>([]);
   const [errorRequest, setErrorRequest] = useState<boolean>(false);
   const [accessGeoData, setAccessGeoData] = useState<boolean>(true);
@@ -14,10 +14,10 @@ function Main() {
     <div
       className="preloader__wrapper"
       style={{
-        height: "80vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
+        height: '80vh',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       <img src={preloader} alt="preload" width={50} height={50} />
@@ -29,12 +29,12 @@ function Main() {
   }, []);
 
   const findCoordinates = () => {
-    if ("geolocation" in navigator) {
+    if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           try {
             const api = await axios(
-              `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`,
+              `https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${constants.apiKey}&units=metric`,
             );
 
             setData([api.data]);
@@ -47,7 +47,6 @@ function Main() {
         },
         { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 },
       );
-    } else {
     }
   };
 

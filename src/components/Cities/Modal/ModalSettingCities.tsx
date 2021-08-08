@@ -1,7 +1,7 @@
-import React, { DragEvent, FunctionComponent } from "react";
-import humb from "../images/humb.png";
-import removeImg from "../images/remove.png";
-import { SelectedListType } from "../WidgetWeather";
+import React, { DragEvent, FunctionComponent } from 'react';
+import humb from '../images/humb.png';
+import removeImg from '../images/remove.png';
+import { SelectedListType } from '../WidgetWeather';
 
 type AppProps = {
   city: SelectedListType;
@@ -16,15 +16,15 @@ const ModalSettingCities: FunctionComponent<AppProps> = ({ city, removeItem, dro
     setCurrentCard(city);
   };
   const dragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.target.style.background = "#E2E1E1";
+    e.target.style.background = '#E2E1E1';
   };
 
   const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
-    e.target.style.background = "#E2E1E1";
+    e.target.style.background = '#E2E1E1';
   };
   const dragOverHandler = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
-    e.target.style.background = "#7D7D7D";
+    e.target.style.background = '#7D7D7D';
   };
 
   return (
@@ -37,7 +37,7 @@ const ModalSettingCities: FunctionComponent<AppProps> = ({ city, removeItem, dro
       onDragOver={dragOverHandler}
       onDrop={(e: DragEvent<HTMLDivElement>) => {
         dropHandler(e, city);
-        e.target.style.background = "#E2E1E1";
+        e.target.style.background = '#E2E1E1';
       }}
     >
       <div className="modal-setting-cities__humb">

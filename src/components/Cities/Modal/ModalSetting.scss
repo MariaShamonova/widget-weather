@@ -1,236 +1,235 @@
-@mixin flexible () {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+@mixin flexible() {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 $font_fam: 'Roboto';
 
-#popup-root{
-    .popup-overlay{
-        background: rgba(0,0,0,0.3);
-        .popup-content {
-            .modal-setting{
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-                align-items: center;
-                width: 45vh;
-                height: 55vh;
-                min-width: 330px;
-                min-height: 400px;
-                background: #fff;
-                border-radius: 5px;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-                padding: 20px;
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                -ms-border-radius: 5px;
-                -o-border-radius: 5px;
-                &__header{
-                    @include flexible();
-                    justify-content: space-between;
-                    width: 100%;
-                    height: 10%;
-                    font: {
-                        size: 20px;
-                        weight: bold;
-                        family: $font_fam, sans-serif;
-                    }
-                    .icon{
-                        &:hover{
-                            cursor: pointer;
-                        }
-                    }
-                }
-                &__main{
-                    width: 100%;
-                    height: 70%;
-                    @include flexible();
-                    justify-content: space-between;
-                    flex-direction: column;
-                    
-                }
-                &__drop-drag{
-                    margin-top: 15px;
-                    width: 100%;
-                    height: 75%;
-                    min-height: 75%;
-                    max-height: 200px;
-                    overflow-y: auto;
-                   
-                   
-                    .modal-setting-cities{
-                       @include flexible();
-                       justify-content: space-between;
-                       width: calc(100% - 20px);
-                       background: #E2E1E1;
-                       border-radius: 4px;
-                       padding: 10px 10px;
-                       margin-bottom: 10px;
-                       -webkit-border-radius: 4px;
-                       -moz-border-radius: 4px;
-                       -ms-border-radius: 4px;
-                       -o-border-radius: 4px;
-                      
-                        &:last-of-type{
-                            margin-bottom: 0;
-                        }
-                        &__humb{
-                            @include flexible();
-                            &:hover{
-                                cursor: move;
-                            }
-                        }
-                        &__title{
-                            font: {
-                                size: 14px;                          
-                                family: $font_fam, sans-serif;
-                            }
-                        }
-                        &__remove{
-                            @include flexible();
-                            &:hover{
-                                cursor: pointer;
-                            }
-                        }
-                    }
-                    .message__empty{
-                        font: {
-                            size: 14px;                          
-                            family: $font_fam, sans-serif;
-                        }
-                    }
-
-                }
-                .drop-drag::-webkit-scrollbar{
-                    width: 8px;
-                    border-radius: 4px;
-                    transition: all 0.20s linear;
-                    -moz-border-radius: 4px;
-                    -ms-border-radius: 4px;
-                    -o-border-radius: 4px;
-                    -webkit-transition: all 0.20s linear;
-                    -moz-transition: all 0.20s linear;
-                    -ms-transition: all 0.20s linear;
-                    -o-transition: all 0.20s linear;
-                }
-                .drop-drag::-webkit-scrollbar-thumb{
-                    background: rgba(0, 0, 0, 0.05);
-                    border-radius: 4px;
-                    transition: all 0.20s linear;
-                    -moz-border-radius: 4px;
-                    -ms-border-radius: 4px;
-                    -o-border-radius: 4px;
-                    -webkit-transition: all 0.20s linear;
-                    -moz-transition: all 0.20s linear;
-                    -ms-transition: all 0.20s linear;
-                    -o-transition: all 0.20s linear;
-                    -webkit-border-radius: 4px;
-                }
-                &__add-city{
-                    width: 100%;
-                    height: fit-content;
-                    margin: 10px 0 10px 0;
-                    align-items: flex-start;
-                    .add-city{
-                        
-                        &__title{
-                            height: 25px;
-                            font: {
-                                size: 14px;                          
-                                family: $font_fam, sans-serif;
-                            }
-                        }
-                        &__main{
-                            @include flexible();
-                            height: 30px;
-                            
-                            input{
-                                width: 80%;
-                                height: 100%;
-                                border: 1px solid #BFBFBF;
-                                border-radius: 4px;
-                                padding-left: 15px;
-                                -webkit-border-radius: 4px;
-                                -moz-border-radius: 4px;
-                                -ms-border-radius: 4px;
-                                -o-border-radius: 4px;
-                                &:focus{
-                                    outline: none;
-                                    border: 1px solid #BFBFBF;
-                                }
-                                &:hover{
-                                    border: 1px solid #8C8C8C;
-                                }
-                            }
-                            .button{
-                                @include flexible();
-                                background: #EBEBEB;
-                                color: #000;
-                                border-radius: 4px;
-                                width: 30px;
-                                height: 100%;
-                                margin-left: 10px;
-                                
-                                -webkit-border-radius: 4px;
-                                -moz-border-radius: 4px;
-                                -ms-border-radius: 4px;
-                                -o-border-radius: 4px;
-                                &:hover{
-                                    cursor: pointer;
-                                    background: #DDDDDD;
-                                }
-                            }
-                        }
-                        .error__message{
-                            height: auto;
-                        }
-                    }
-                }
-                &__buttons{
-                    @include flexible();
-                    width: 100%;
-                    height: 15%;
-                    margin-top: 10px;
-                    &__item{
-                        width: auto;
-                        margin-right: 20px ;
-                        color: #8C8C8C;
-                       
-                        font: {
-                            size: 14px;                          
-                            family: $font_fam, sans-serif;
-                        }
-                        &:first-of-type{
-                            &:hover{
-                                color: #000;
-                            }   
-                        }
-                        &:last-of-type{
-                            margin-right: 0;
-                            border-radius: 4px;
-                            //border: 1px solid gray;
-                            background: #EBEBEB;
-                            color: #000;
-                            padding: 10px 15px;
-                            -webkit-border-radius: 4px;
-                            -moz-border-radius: 4px;
-                            -ms-border-radius: 4px;
-                            -o-border-radius: 4px;
-                            -webkit-border-radius: 4px;
-                            &:hover{
-                                
-                                background: #DDDDDD;
-                            }
-                        }
-                        &:hover {
-                            cursor: pointer;
-                            
-                        }
-                    }
-                }
-            };
+#popup-root {
+  .popup-overlay {
+    background: rgba(0, 0, 0, 0.3);
+    .popup-content {
+      .modal-setting {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 45vh;
+        height: 55vh;
+        min-width: 330px;
+        min-height: 400px;
+        background: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -ms-border-radius: 5px;
+        -o-border-radius: 5px;
+        &__header {
+          @include flexible();
+          justify-content: space-between;
+          width: 100%;
+          height: 10%;
+          font: {
+            size: 20px;
+            weight: bold;
+            family: $font_fam, sans-serif;
+          }
+          .icon {
+            &:hover {
+              cursor: pointer;
+            }
+          }
         }
+        &__main {
+          width: 100%;
+          height: 70%;
+          @include flexible();
+          justify-content: space-between;
+          flex-direction: column;
+        }
+        &__drop-drag {
+          margin-top: 15px;
+          width: 100%;
+          height: 75%;
+          min-height: 75%;
+          max-height: 200px;
+          overflow-y: auto;
+
+          .modal-setting-cities {
+            @include flexible();
+            justify-content: space-between;
+            width: calc(100% - 20px);
+            background: #e2e1e1;
+            border-radius: 4px;
+            padding: 10px 10px;
+            margin-bottom: 10px;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+
+            &:last-of-type {
+              margin-bottom: 0;
+            }
+            &__humb {
+              @include flexible();
+              &:hover {
+                cursor: move;
+              }
+            }
+            &__title {
+              font: {
+                size: 14px;
+                family: $font_fam, sans-serif;
+              }
+            }
+            &__remove {
+              @include flexible();
+              &:hover {
+                cursor: pointer;
+              }
+            }
+          }
+          .message__empty {
+            font: {
+              size: 14px;
+              family: $font_fam, sans-serif;
+            }
+          }
+        }
+        .drop-drag::-webkit-scrollbar {
+          width: 8px;
+          border-radius: 4px;
+          transition: all 0.2s linear;
+          -moz-border-radius: 4px;
+          -ms-border-radius: 4px;
+          -o-border-radius: 4px;
+          -webkit-transition: all 0.2s linear;
+          -moz-transition: all 0.2s linear;
+          -ms-transition: all 0.2s linear;
+          -o-transition: all 0.2s linear;
+        }
+        .drop-drag::-webkit-scrollbar-thumb {
+          background: rgba(0, 0, 0, 0.05);
+          border-radius: 4px;
+          transition: all 0.2s linear;
+          -moz-border-radius: 4px;
+          -ms-border-radius: 4px;
+          -o-border-radius: 4px;
+          -webkit-transition: all 0.2s linear;
+          -moz-transition: all 0.2s linear;
+          -ms-transition: all 0.2s linear;
+          -o-transition: all 0.2s linear;
+          -webkit-border-radius: 4px;
+        }
+        &__add-city {
+          width: 100%;
+          height: fit-content;
+          margin: 10px 0 10px 0;
+          align-items: flex-start;
+          .add-city {
+            &__title {
+              height: 25px;
+              font: {
+                size: 14px;
+                family: $font_fam, sans-serif;
+              }
+            }
+            &__main {
+              @include flexible();
+              height: 30px;
+
+              input {
+                width: 80%;
+                height: 100%;
+                border: 1px solid #bfbfbf;
+                border-radius: 4px;
+                padding-left: 15px;
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                -ms-border-radius: 4px;
+                -o-border-radius: 4px;
+                &:focus {
+                  outline: none;
+                  border: 1px solid #bfbfbf;
+                }
+                &:hover {
+                  border: 1px solid #8c8c8c;
+                }
+              }
+              .button {
+                @include flexible();
+                background: #ebebeb;
+                color: #000;
+                border-radius: 4px;
+                width: 30px;
+                height: 100%;
+                margin-left: 10px;
+
+                -webkit-border-radius: 4px;
+                -moz-border-radius: 4px;
+                -ms-border-radius: 4px;
+                -o-border-radius: 4px;
+                &:hover {
+                  cursor: pointer;
+                  background: #dddddd;
+                }
+              }
+            }
+          }
+          .error__message {
+            height: 10px;
+            font: {
+              size: 12px;
+              family: $font_fam, sans-serif;
+            }
+            margin-top: 5px;
+          }
+        }
+        &__buttons {
+          @include flexible();
+          width: 100%;
+          height: 15%;
+          margin-top: 10px;
+          &__item {
+            width: auto;
+            margin-right: 20px;
+            color: #8c8c8c;
+
+            font: {
+              size: 14px;
+              family: $font_fam, sans-serif;
+            }
+            &:first-of-type {
+              &:hover {
+                color: #000;
+              }
+            }
+            &:last-of-type {
+              margin-right: 0;
+              border-radius: 4px;
+              //border: 1px solid gray;
+              background: #ebebeb;
+              color: #000;
+              padding: 10px 15px;
+              -webkit-border-radius: 4px;
+              -moz-border-radius: 4px;
+              -ms-border-radius: 4px;
+              -o-border-radius: 4px;
+              -webkit-border-radius: 4px;
+              &:hover {
+                background: #dddddd;
+              }
+            }
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
     }
+  }
 }
