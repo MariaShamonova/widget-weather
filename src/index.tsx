@@ -1,7 +1,5 @@
-import ReactDOM from 'react-dom';
-import Main from './components/Cities/Main'
+import React from "react";
+import ReactDOM from "react-dom";
+import Main from "./components/Cities/Main";
 
-ReactDOM.render(
-    <Main />,
-    document.getElementsByTagName('widget-weather')[0]
-)
+ReactDOM.render(<Main />, document.getElementsByTagName("widget-weather")[0]);
