@@ -1,0 +1,167 @@
+@mixin flexible () {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+$font_fam: 'Roboto';
+
+.widget-weather{
+    background: #E2E1E1;
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.14);
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    width: 300px;
+    padding: 10px;
+    &__wrapper{
+        background: #EBEBEB;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        padding: 20px
+    }
+    &__header{
+        @include flexible;
+        justify-content: space-between;
+        
+        padding-bottom: 10px;
+        border-bottom: 1px solid #D7D7D7;
+        .title{
+            
+            font: {
+                size: 20px;
+                weight: bold;
+                family: $font_fam, sans-serif;
+            }
+        }
+        .icon{
+            width: 20px;
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    };
+    &__main{
+        width: 100%;
+        height: auto;
+        max-height: 85vh;
+        overflow-y: auto;
+        padding-right: 10px;
+        &::-webkit-scrollbar{
+            width: 8px;
+            border-radius: 4px;
+            transition: all 0.20s linear;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+            -webkit-transition: all 0.20s linear;
+            -moz-transition: all 0.20s linear;
+            -ms-transition: all 0.20s linear;
+            -o-transition: all 0.20s linear;
+        }
+        &::-webkit-scrollbar-thumb{
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 4px;
+            transition: all 0.20s linear;
+            -moz-border-radius: 4px;
+            -ms-border-radius: 4px;
+            -o-border-radius: 4px;
+            -webkit-transition: all 0.20s linear;
+            -moz-transition: all 0.20s linear;
+            -ms-transition: all 0.20s linear;
+            -o-transition: all 0.20s linear;
+            -webkit-border-radius: 4px;
+        }
+        .cities-item{
+           
+            @include flexible();
+            flex-direction: column;
+            width: 100%;
+            border-bottom: 1px solid #D7D7D7;
+            margin-top: 20px;
+            &:last-of-type{
+                border-bottom: none;
+            }
+            &__elem{
+                width: 100%;
+                height: 30px;
+                margin-bottom: 10px;
+            }
+            &__title{
+                font: {
+                    size: 16px;
+                    weight: bold;
+                    family: $font_fam, sans-serif;
+                }
+            }
+            &__temperature{
+                @include flexible();
+                margin: 10px 0 30px 0;
+                .temperature__item{
+                    @include flexible();
+                    width: 35%;
+                    
+                }
+                .text{
+                    font: {
+                        size: 25px;
+                        //style: italic;
+                        weight: bold;
+                        family: $font_fam, sans-serif;
+                      }
+                }
+            }
+            &__description{
+                display: flex;
+                margin: 0;
+                font: {
+                    size: 14px;
+                    family: $font_fam, sans-serif;
+                };
+                height: auto;
+                padding: 7px 0;
+                p{
+                    
+                    &:first-letter{
+                        text-transform: capitalize;
+                    }
+                }
+            }
+            &__speed-wind{
+                @include flexible();
+                .speed-wind__item{
+                    @include flexible();
+                    width: 50%;
+                    font: {
+                        size: 14px;
+                        family: $font_fam, sans-serif;
+                    };
+                    .icon{
+                        margin-right: 10px;
+                       
+                    }
+                    
+                }
+            }
+            &__humidity{
+                width: 100%;
+                height: auto;
+                margin-bottom: 10px;
+                font: {
+                    size: 14px;
+                    family: $font_fam, sans-serif;
+                };
+                
+            }
+            &__visibility{
+                font: {
+                    size: 14px;
+                    family: $font_fam, sans-serif;
+                };
+            }
+        }
+    };
+        
+};

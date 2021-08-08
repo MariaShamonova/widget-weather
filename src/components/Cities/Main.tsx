@@ -1,0 +1,57 @@
+ import React, {useState, useEffect, useMemo} from 'react'
+import WidgetWeather from './WidgetWeather'
+import preloader from './images/preloader.gif'
+import axios from 'axios'
+import {WeatherDataType} from './CitiesItem'
+
+function Main(props: any) {
+    const apiKey = 'bdf8194cb2aa74ffc6a004548c775541'
+    const [data, setData] = useState<WeatherDataType[]>()
+    
+    const loader = (
+		<div 
+            className="preloader__wrapper"
+            style={{
+                height: '80vh', 
+                display: 'flex', 
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+            >
+			<img src={preloader} alt="preload" width={50} height={50} />
+		</div>
+	)
+
+    useEffect(() => {
+        findCoordinates()
+    }, [])
+
+    const findCoordinates = () => {
+         navigator.geolocation.getCurrentPosition(
+            async position => {
+                try {
+                    const api = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`)
+                
+                    setData([api.data])
+                } catch {
+                    console.log('error')
+                    setData([])
+                }
+            },
+            error => console.log(error.message),
+            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+        );
+    }
+
+    const MainComponent = () => {
+        return(
+            data === undefined ? loader :  <WidgetWeather currWeather={data}/>
+        )  
+    }
+
+    return (
+        <MainComponent/>
+    );
+}
+
+export default Main
