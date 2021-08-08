@@ -1,12 +1,14 @@
- import React, {useState, useEffect, useMemo} from 'react'
+import React, {useState, useEffect} from 'react'
 import WidgetWeather from './WidgetWeather'
 import preloader from './images/preloader.gif'
 import axios from 'axios'
 import {WeatherDataType} from './CitiesItem'
 
-function Main(props: any) {
+function Main() {
     const apiKey = 'bdf8194cb2aa74ffc6a004548c775541'
-    const [data, setData] = useState<WeatherDataType[]>()
+    const [data, setData] = useState<WeatherDataType[]>([])
+    const [errorRequest, setErrorRequest] = useState<boolean>(false)
+    const [accessGeoData, setAccessGeoData] = useState<boolean>(true)
     
     const loader = (
 		<div 
@@ -27,30 +29,49 @@ function Main(props: any) {
     }, [])
 
     const findCoordinates = () => {
-         navigator.geolocation.getCurrentPosition(
-            async position => {
-                try {
-                    const api = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`)
-                
-                    setData([api.data])
-                } catch {
-                    console.log('error')
-                    setData([])
-                }
-            },
-            error => console.log(error.message),
-            { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
-        );
+        
+        if ("geolocation" in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                async position => {
+                    try {
+                        const api = await axios(`https://api.openweathermap.org/data/2.5/weather?lat=${position.coords.latitude}&lon=${position.coords.longitude}&appid=${apiKey}&units=metric`)
+                    
+                        setData([api.data])
+                    } catch {
+                        setErrorRequest(true)
+                    }
+                },
+                error => {
+                    console.log(error.message)
+                    setAccessGeoData(false)
+                },
+                { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000 }
+            );
+          } else {
+             
+            
+          }
+         
     }
 
-    const MainComponent = () => {
+    const ErrorComponent = () => {
         return(
-            data === undefined ? loader :  <WidgetWeather currWeather={data}/>
+            <div>Error Request</div>
+        )
+    }
+    const MainComponent = () => {
+        console.log("acsess" + accessGeoData)
+        return(
+            data.length === 0  && accessGeoData ? loader :  <WidgetWeather currWeather={data}/>
         )  
     }
 
     return (
-        <MainComponent/>
+        <>
+            {
+                !errorRequest ?  <MainComponent/> : <ErrorComponent/>
+            }
+        </>
     );
 }
 

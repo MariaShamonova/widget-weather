@@ -25,11 +25,9 @@ $font_fam: 'Roboto';
     &__header{
         @include flexible;
         justify-content: space-between;
-        
         padding-bottom: 10px;
         border-bottom: 1px solid #D7D7D7;
         .title{
-            
             font: {
                 size: 20px;
                 weight: bold;
@@ -46,6 +44,7 @@ $font_fam: 'Roboto';
     &__main{
         width: 100%;
         height: auto;
+        min-height: 40vh;
         max-height: 85vh;
         overflow-y: auto;
         padding-right: 10px;
@@ -160,6 +159,13 @@ $font_fam: 'Roboto';
                     size: 14px;
                     family: $font_fam, sans-serif;
                 };
+            }
+        }
+        .message__empty{
+            margin-top: 15px;
+            font: {
+                size: 14px;                          
+                family: $font_fam, sans-serif;
             }
         }
     };

@@ -157,7 +157,7 @@ const ModalSetting: FunctionComponent<AppProps> = ({
 										/>
 									))
 								: 
-										<div>Now selected cities</div>
+										<div className="message__empty">No selected cities</div>
 							}
 						</div>
 						<div className="modal-setting__add-city add-city">

@@ -95,6 +95,12 @@ $font_fam: 'Roboto';
                             }
                         }
                     }
+                    .message__empty{
+                        font: {
+                            size: 14px;                          
+                            family: $font_fam, sans-serif;
+                        }
+                    }
 
                 }
                 .drop-drag::-webkit-scrollbar{

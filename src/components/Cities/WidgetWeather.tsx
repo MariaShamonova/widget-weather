@@ -2,7 +2,6 @@ import React, {useState, useEffect, FunctionComponent} from 'react'
 import gear from './images/gear.png'
 import CitiesItem from './CitiesItem'
 import ModalSetting from './Modal/ModalSetting'
-import preloader from './images/preloader.gif'
 import {WeatherDataType} from './CitiesItem'
 
 export interface SelectedListType{
@@ -20,21 +19,16 @@ const WidgetWeather: FunctionComponent<AppProps> = ({
 }) => {
 
     const insertIf = (condition: boolean, ...elements: SelectedListType[]) => {
-        console.log(elements)
 		return condition ? elements : []
 	}
    
     const apiKey = 'bdf8194cb2aa74ffc6a004548c775541'
 
-    const [lat, setLat] = useState<number>();
-    const [long, setLong] = useState<number>();
+    const [data, setData] = useState(currWeather);
+    const [open, setOpen] = useState(false)
+	const closeModal = () => setOpen(false)
     const [selectedList, setSelectedList] = useState<SelectedListType[]>(
         [
-            // {
-            //     id: 0,
-            //     order: 0,
-            //     name: currWeather[0].name
-            // },
             ...insertIf(
                 currWeather.length > 0, 
                 {
@@ -45,37 +39,6 @@ const WidgetWeather: FunctionComponent<AppProps> = ({
             
         ]
     )
-    
-
-    const loader = (
-		<div 
-            className="preloader__wrapper"
-            style={{
-                        height: '80vh', 
-                        display: 'flex', 
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                }}
-            >
-			<img src={preloader} alt="preload" width={50} height={50} />
-		</div>
-	)
-
-    const [data, setData] = useState(currWeather);
-    const [open, setOpen] = useState(true)
-	const closeModal = () => setOpen(false)
-
-	const MainComponent = () => {
-		return (
-			<div className="widget-weather__main">
-                {
-                    data.map((el, index) => (
-                        <CitiesItem data={el} key={index}/>
-                    ))
-                }
-            </div>
-		)
-	}
 
    const clickSave = async (listCities: SelectedListType[]) => {
 
@@ -95,6 +58,19 @@ const WidgetWeather: FunctionComponent<AppProps> = ({
         );
         setData([...cities])
    }
+
+   const MainComponent = () => {
+        return (
+            <div className="widget-weather__main">
+                {
+                    data.length > 0 ? data.map((el, index) => (
+                        <CitiesItem data={el} key={index}/>
+                    )) : 
+                    <div className="message__empty">No selected cities</div>
+                }
+            </div>
+        )
+    }
 
 	return (
 		<div className="widget-weather">
